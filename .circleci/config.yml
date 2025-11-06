@@ -1,0 +1,30 @@
+version: 2.1
+
+jobs:
+  run-cmd:
+    docker:
+      - image: cimg/base:stable  # Linux environment bawaan CircleCI
+    parameters:
+      variant:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Jalankan Command di << parameters.variant >>
+          command: |
+            echo "=== Mulai job: << parameters.variant >> ==="
+            echo "Hostname: $(hostname)"
+            echo "Tanggal: $(date)"
+            # Ganti contoh di bawah dengan command kamu
+            echo "Menjalankan proses untuk << parameters.variant >>"
+            sleep 5
+            echo "=== Selesai job: << parameters.variant >> ==="
+
+workflows:
+  version: 2
+  matrix_workflow:
+    jobs:
+      - run-cmd:
+          matrix:
+            parameters:
+              variant: ["alpha", "beta", "gamma", "delta"]
