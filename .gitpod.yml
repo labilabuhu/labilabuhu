@@ -1,0 +1,15 @@
+# Konfigurasi Gitpod sederhana untuk menjalankan OpenVSCode
+tasks:
+  - name: Start OpenVSCode Server
+    init: |
+      echo "Menyiapkan lingkungan pengembangan..."
+    command: |
+      npx openvscode-server --port 3000 --host 0.0.0.0
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+
+# Image dasar (opsional, bisa dihapus jika tidak perlu)
+image:
+  file: .gitpod.Dockerfile
