@@ -1,23 +1,12 @@
 version: 2.1
-
-# Define the jobs we want to run for this project
 jobs:
   build:
-    docker:
-      - image: cimg/base:2023.03
+    machine:
+      image: ubuntu-2404:current # Specify the Ubuntu VM image
+    parallelism: 4
     steps:
       - checkout
-      - run: echo "this is the build job"
-  test:
-    docker:
-      - image: cimg/base:2023.03
-    steps:
-      - checkout
-      - run: echo "this is the test job"
-
-# Orchestrate our job run sequence
-workflows:
-  build_and_test:
-    jobs:
-      - build
-      - test
+      - run:
+          name: Run build commands
+          command: |
+            npx mocha --list-files | circleci tests run --command="xargs npx mocha" --split-by=timings
