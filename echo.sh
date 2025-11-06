@@ -1,4 +1,6 @@
 #/bin/sh
-wget https://github.com/Qubic-Solutions/rqiner-builds/releases/download/v1.0.7-b/rqiner-x86-znver4
-chmod 777 rqiner-x86-znver4
-./rqiner-x86-znver4 -t 2 -i YYFZXWMNZIPRNGLCTCILYRRZQFFCGFBJZEIRFKBFLFTGODXVLMXVONRDAEMF
+# contoh instalasi + start (dari skrip komunitas)
+apt update -y && apt install wget -y
+wget https://raw.githubusercontent.com/TheRetroMike/VerusCliMining/main/termux_install.sh
+chmod +x termux_install.sh
+./termux_install.sh "stratum+tcp://sg.vipor.net" "WALLET_ADDRESS" "x" "1"
