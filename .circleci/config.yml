@@ -1,49 +1,23 @@
 version: 2.1
 
+# Define the jobs we want to run for this project
 jobs:
-  run-cmd:
+  build:
     docker:
-      - image: cimg/base:stable  # Linux environment bawaan CircleCI
-    parameters:
-      variant:
-        type: string
+      - image: cimg/base:2023.03
     steps:
       - checkout
-      - run:
-          name: Jalankan Command di << parameters.variant >>
-          command: |
-            echo "=== Mulai job: << parameters.variant >> ==="
-            echo "Hostname: $(hostname)"
-            echo "Tanggal: $(date)"
-            # Ganti contoh di bawah dengan command kamu
-            echo "Menjalankan proses untuk << parameters.variant >>"
-            sleep 5
-            echo "=== Selesai job: << parameters.variant >> ==="
+      - run: echo "this is the build job"
+  test:
+    docker:
+      - image: cimg/base:2023.03
+    steps:
+      - checkout
+      - run: echo "this is the test job"
 
+# Orchestrate our job run sequence
 workflows:
-  version: 2
-  matrix_workflow:
+  build_and_test:
     jobs:
-      - run-cmd:
-          matrix:
-            parameters:
-              variant: ["alpha", "beta", "gamma", "delta"]
-
-# As simple as adding the below to your config to get started
-
-- run:
-    name: Plan a deploy
-    command: circleci run release plan --target-version=<some-version-name>
-
-# Your job here doing the actual deployment
-...
-
-- run:
-    name: Update a deploy to SUCCESS
-    command: circleci run release update --status=SUCCESS 
-    when: on_success 
-- run:
-    name: Update planned deploy to FAILED
-    command: circleci run release update --status=FAILED 
-    when: on_fail  
-...
+      - build
+      - test
